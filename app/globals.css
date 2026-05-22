@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAYA SVG ANIMATIONS & EXPRESSIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* Default Hide All Expression Mouths */
+.maya-mouths .mouth { display: none; }
+
+/* ─── State: Idle ─── */
+.maya--idle .maya-body-group { animation: breatheBody 4s infinite ease-in-out; }
+.maya--idle #maya-head { animation: breatheHead 4s infinite ease-in-out; }
+.maya--idle .mouth-neutral { display: block; }
+
+/* ─── State: Talking ─── */
+.maya--talking .maya-body-group { animation: breatheBody 4s infinite ease-in-out; }
+.maya--talking #maya-head { animation: talkHead 0.5s infinite alternate; }
+.maya--talking .mouth-open { display: block; animation: talkMouth 0.15s infinite alternate; }
+.maya--talking .maya-brow { animation: talkBrows 2s infinite alternate; }
+
+/* ─── State: Thinking ─── */
+.maya--thinking #maya-head { transform: rotate(5deg) translateY(-2px); transform-origin: 150px 200px; transition: transform 0.4s; }
+.maya--thinking .eye-pupil-group { transform: translateX(8px) translateY(-3px); transition: transform 0.3s; }
+.maya--thinking .mouth-neutral { display: block; }
+.maya--thinking #brow-left { transform: translateY(-3px) rotate(5deg); }
+.maya--thinking #brow-right { transform: translateY(2px) rotate(-2deg); }
+
+/* ─── State: Happy ─── */
+.maya--happy-bounce { animation: happyBounce 0.6s ease-in-out; }
+.maya--happy .mouth-smile { display: block; }
+.maya--happy .eye-pupil-group { transform: translateY(-2px); }
+.maya--happy .maya-brow { transform: translateY(-4px); transition: transform 0.3s; }
+
+/* ─── State: Stern ─── */
+.maya--stern #maya-head { animation: shakeHead 3s infinite ease-in-out; }
+.maya--stern .mouth-frown { display: block; }
+.maya--stern .eyelid-upper { transform: translateY(3px); transition: transform 0.3s; } /* heavy eyelids */
+.maya--stern #brow-left { transform: translateY(4px) rotate(8deg); transform-origin: center; transition: all 0.3s; }
+.maya--stern #brow-right { transform: translateY(4px) rotate(-8deg); transform-origin: center; transition: all 0.3s; }
+
+/* ─── State: Encouraging ─── */
+.maya--encouraging .mouth-small-open { display: block; }
+.maya--encouraging #brow-left { transform: translateY(-5px) rotate(-5deg); transition: all 0.3s; }
+.maya--encouraging #brow-right { transform: translateY(1px); transition: all 0.3s; }
+
+/* ─── Base Animations ─── */
+@keyframes breatheBody {
+  0%, 100% { transform: scaleY(1); transform-origin: bottom center; }
+  50% { transform: scaleY(1.02); transform-origin: bottom center; }
+}
+@keyframes breatheHead {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes talkHead {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-2px) rotate(1deg); }
+}
+@keyframes talkMouth {
+  0% { transform: scaleY(0.5); transform-origin: center; }
+  100% { transform: scaleY(1.2); transform-origin: center; }
+}
+@keyframes talkBrows {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-3px); }
+  40% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+@keyframes happyBounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-15px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-7px); }
+}
+@keyframes shakeHead {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* ─── Blinking ─── */
+.eyelid-upper {
+  transition: transform 0.05s ease-in-out;
+}
+.blink-active {
+  transform: translateY(12px) scaleY(1.5) !important;
+}
